@@ -1,0 +1,31 @@
+## black exclude block
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | keep_dirty
+)/
+'''
+
+- https://black.readthedocs.io/en/stable/usage_and_configuration/file_collection_and_discovery.html#gitignore
+- black will automatically ignore files/dirs from .gitignore if you don't specify `--exclude`
+  - to exlude stuff and .gitignore, use `--extend-exclude`
+- avoid ruining git blame - https://black.readthedocs.io/en/stable/guides/introducing_black_to_your_project.html
+
+## isort
+- Finally, to atomically run isort against a project, only applying changes if they don't introduce syntax errors: `isort --atomic .`
+- ignore an import, add comment `import module  # isort:skip`
+  - or docstring comment `isort:skip_file`
+- isort will skip some default files, use `extend_skip` to add additional files!
+  - there's also a `skip_gitignore` option
+
+## pycln
+- ignore import with `# nopycln: import` or `# noqa` comment
+  - skip a file with `# nopycln: file` comment at beginning of module or end
