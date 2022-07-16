@@ -1,3 +1,5 @@
 black . --diff --verbose
 isort . --diff --verbose
 pycln . --check --verbose
+
+isort [file] -cv
