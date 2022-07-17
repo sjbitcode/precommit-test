@@ -32,6 +32,10 @@ def greet(greeting, name):
     return f"{greeting}, {name}!"
 
 
+def serve_food(food):
+    return f"here's your {food}"
+
+
 if __name__ == "__main__":
     for greeting in greetings:
         print(greet(greeting, "Sangeeta"))
