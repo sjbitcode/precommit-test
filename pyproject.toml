@@ -1,6 +1,6 @@
 [tool.black]
 line-length = 100
-extend-exclude = '''
+force-exclude = '''
 keep_dirty |
 dirty_main.py
 '''
