@@ -17,6 +17,13 @@ rm-venv:
 	@rm -rf $(VENV)
 
 
+## Set up virtualenv and install pre-commit
+setup:
+	$(PY) -m venv $(VENV)
+	$(BIN)/pip install -r requirements.txt
+	$(BIN)/pre-commit install
+
+
 ## Format the codebase
 format:
 	@echo "\n\033[1;36m[1/4] Running pycln 👻 🧹 👻\033[0m\n"
