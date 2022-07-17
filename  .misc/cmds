@@ -1,6 +1,7 @@
 pycln . --check --verbose
 isort . --diff --verbose
+isort [file] -cv
 black . --diff --verbose
 flake8 .
-
-isort [file] -cv
+pre-commit run -a
+pre-commit run black

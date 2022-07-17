@@ -4,16 +4,6 @@ BIN=$(VENV)/bin
 PYTHON=$(BIN)/python
 
 
-# -------------------------------------------------------------------
-# Development-related commands
-# Run commands inside virtualenv - https://earthly.dev/blog/python-makefile/
-# -------------------------------------------------------------------
-
-$(VENV)/bin/activate: requirements.txt
-	$(PY) -m venv $(VENV)
-	$(BIN)/pip install -r requirements.txt
-
-
 ## Remove cached files and dirs from workspace
 clean:
 	@echo "cleaning workspace 🧹💨"
@@ -28,27 +18,27 @@ clean-venv:
 
 
 ## Format the codebase
-format: $(VENV)/bin/activate
+format:
 	@echo "\n\033[1;36m[1/4] Running pycln 👻 🧹 💨\033[0m\n"
-	@$(BIN)/pycln . --config pyproject.toml -v
+	@pycln . --config pyproject.toml -v
 	@echo "\n\033[1;36m[2/4] Running isort 👀 🗂  ✨\033[0m\n"
-	@$(BIN)/isort . -v
+	@isort . -v
 	@echo "\n\033[1;36m[3/4] Running black 🖤 🔥 🍪\033[0m\n"
-	@$(BIN)/black  . -v
+	@black  . -v
 	@echo "\n\033[1;36m[4/4] Running flake8 ❄️  ☃️  🍦\033[0m\n"
-	@$(BIN)/flake8 .
+	@flake8 .
 
 
 ## Run linting
-lint: $(VENV)/bin/activate
+lint:
 	@echo "\n\033[1;36m[1/4] Running pycln check 👻 🧹 💨\033[0m\n"
-	@$(BIN)/pycln . --config pyproject.toml -vc
+	@pycln . --config pyproject.toml -vc
 	@echo "\n\033[1;36m[2/4] Running isort check 👀 🗂  ✨\033[0m\n"
-	@$(BIN)/isort . -vc
+	@isort . -vc
 	@echo "\n\033[1;36m[3/4] Running black check 🖤 🔥 🍪\033[0m\n"
-	@$(BIN)/black  . -v --check
+	@black  . -v --check
 	@echo "\n\033[1;36m[4/4] Running flake8 ❄️  ☃️  🍦\033[0m\n"
-	@$(BIN)/flake8 .
+	@flake8 .
 
 
 # -------------------------------------------------------------------
