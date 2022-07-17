@@ -17,6 +17,7 @@ exclude = '''
 - https://black.readthedocs.io/en/stable/usage_and_configuration/file_collection_and_discovery.html#gitignore
 - black will automatically ignore files/dirs from .gitignore if you don't specify `--exclude`
   - to exlude stuff and .gitignore, use `--extend-exclude`
+  - use `force-exclude` to work nicely with pre-commit tool
 - avoid ruining git blame - https://black.readthedocs.io/en/stable/guides/introducing_black_to_your_project.html
 
 ## isort
