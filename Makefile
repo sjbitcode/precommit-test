@@ -19,8 +19,12 @@ rm-venv:
 
 ## Set up virtualenv and install pre-commit
 setup:
+	@echo "\n\033[1;36m[1/3] Creating virtual environment 🏡 👾 🏡 \033[0m\n"
 	$(PY) -m venv $(VENV)
+	@echo "\n\033[1;36m[2/3] Upgrading pip and installing requirements 🔧 📦 🔧 \033[0m\n"
+	$(PYTHON) -m pip install --upgrade pip
 	$(BIN)/pip install -r requirements.txt
+	@echo "\n\033[1;36m[3/3] Install pre-commit 🪝 🪝 🪝 \033[0m\n"
 	$(BIN)/pre-commit install
 
 
