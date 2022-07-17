@@ -1,0 +1,53 @@
+## black exclude block
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | keep_dirty
+)/
+'''
+
+- https://black.readthedocs.io/en/stable/usage_and_configuration/file_collection_and_discovery.html#gitignore
+- black will automatically ignore files/dirs from .gitignore if you don't specify `--exclude`
+  - to exlude stuff and .gitignore, use `--extend-exclude`
+- avoid ruining git blame - https://black.readthedocs.io/en/stable/guides/introducing_black_to_your_project.html
+
+## isort
+- Finally, to atomically run isort against a project, only applying changes if they don't introduce syntax errors: `isort --atomic .`
+- ignore an import, add comment `import module  # isort:skip`
+  - or docstring comment `isort:skip_file`
+- isort will skip some default files, use `extend_skip` to add additional files!
+  - there's also a `skip_gitignore` option
+- defining sections
+  - default is `FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER`
+  - FIRSTPARTY is your code but imported like a third party, ex. `from foo import ...`
+    - https://github.com/PyCQA/isort/issues/1057
+  - `no_lines_before` will not add lines before a section
+  - `known_local_folder` recognizes local module imports as a LOCALFOLDER and not THIRDPARTY
+    - ex. `you have a module test_package with __init__.py, a.py, b.py`
+    - importing `from a import a` will recognize `a` as a THIRDPARTY
+    - defining `known_local_folder = ["a"]` in toml config will recognize it as a LOCALFOLDER
+
+## pycln
+- if running on cmdline pass flags or config path `--config`. Config flag is None by default!
+- ignore import with `# nopycln: import` or `# noqa` comment
+  - skip a file with `# nopycln: file` comment at beginning of module or end
+- pass `--exclude` or `-e` to exclude paths/files. By default it does `(\.eggs|\.git|\.hg|\.mypy_cache|__pycache__|\.nox|\.tox|\.venv|\.svn|buck-out|build|dist)/`
+  - to exclude additional things, use `--extend-exclude` or `-ee`
+- `__init__.py` behavior will remove imports that are not included in `__all__`
+
+## flake8
+- Ignore
+  - ignore file with `# flake8: noqa`
+  - ignore lines ending with `# noqa`
+  - ignore specific errors `# noqa: <error>`, e.g., `# noqa: E234`
+- Exclude
+  - `--exclude`, default to `.svn,CVS,.bzr,.hg,.git,__pycache__,.tox,.nox,.eggs,*.egg`
+  - extends include with `--extend-exclude`

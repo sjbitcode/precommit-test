@@ -1,0 +1,14 @@
+[tool.black]
+line-length = 100
+extend-exclude = '''
+keep_dirty |
+dirty_main.py
+'''
+
+[tool.isort]
+profile = "black"
+extend_skip = ["keep_dirty", "dirty_main.py"]
+known_local_folder = ["a", "b"]
+
+[tool.pycln]
+all = true
